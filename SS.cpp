@@ -1,43 +1,42 @@
-
 #include <iostream>
 #include <chrono>
 using namespace std::chrono;
 using namespace std;
 
-// function to swap the the position of two elements
-void swap(int *a, int *b) {
+// Función para intercambiar la posición de dos elementos
+void intercambiar(int *a, int *b) {
   int temp = *a;
   *a = *b;
   *b = temp;
 }
 
-// function to print an array
-void printArray(int array[], int size) {
-  for (int i = 0; i < size; i++) {
+// Función para imprimir un array
+void imprimirArray(int array[], int tamaño) {
+  for (int i = 0; i < tamaño; i++) {
     cout << array[i] << " ";
   }
   cout << endl;
 }
 
-void selectionSort(int array[], int size) {
-  for (int step = 0; step < size - 1; step++) {
-    int min_idx = step;
-    for (int i = step + 1; i < size; i++) {
+void ordenamientoSeleccion(int array[], int tamaño) {
+  for (int paso = 0; paso < tamaño - 1; paso++) {
+    int indice_minimo = paso;
+    for (int i = paso + 1; i < tamaño; i++) {
 
-      // To sort in descending order, change > to < in this line.
-      // Select the minimum element in each loop.
-      if (array[i] < array[min_idx])
-        min_idx = i;
+      // Para ordenar en orden descendente, cambia < a > en esta línea.
+      // Selecciona el elemento mínimo en cada bucle.
+      if (array[i] < array[indice_minimo])
+        indice_minimo = i;
     }
 
-    // put min at the correct position
-    swap(&array[min_idx], &array[step]);
+    // Coloca el mínimo en la posición correcta
+    intercambiar(&array[indice_minimo], &array[paso]);
   }
 }
 
-// driver code
+// Código principal
 int main() {
-    int data[1000] = {45, -12, 9, 0, -100, 87, 23, -34, 56, 8,
+    int datos[1000] = {45, -12, 9, 0, -100, 87, 23, -34, 56, 8,
                            -89, 67, 12, 43, -1, 92, -5, 37, -16, 74,
                            15, -8, 93, 22, -44, 5, -73, 64, -33, 51,
                            86, -92, 19, 40, 85, -60, 30, -20, 99, -25,
@@ -126,12 +125,14 @@ int main() {
                            12, 56, 91, -8, 73, -10, 43, -90, 67, 24,
                            -82, 59, -39, 41, 66, -46, 31, 52, -27, 93};
 
-  int size = sizeof(data) / sizeof(data[0]);
-  auto start = high_resolution_clock::now();
-  selectionSort(data, size);
-  auto stop = high_resolution_clock::now();
-  auto duration = duration_cast<microseconds>(stop - start);
-  cout << "Sorted array in Acsending Order:\n";
-  cout << "Tiempo de ejecución: " << duration.count() << " microsegundos" << endl;
-  printArray(data, size);
+  int tamaño = sizeof(datos) / sizeof(datos[0]);
+  
+  auto inicio = high_resolution_clock::now();
+  ordenamientoSeleccion(datos, tamaño);
+  auto fin = high_resolution_clock::now();
+  auto duración = duration_cast<microseconds>(fin - inicio);
+
+  cout << "Array ordenado en Orden Ascendente:\n";
+  cout << "Tiempo de ejecución: " << duración.count() << " microsegundos" << endl;
+  imprimirArray(datos, tamaño);
 }
